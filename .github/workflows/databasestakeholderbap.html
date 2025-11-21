@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Database Staketholder BAP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4D688B;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            background: #ffffffdd;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        header img {
+            height: 30px;
+            margin-right: 10px;
+        }
+        header .title {
+            font-weight: bold;
+        }
+        nav {
+            margin: 15px 0;
+            display: flex;
+            gap: 15px;
+        }
+        nav a {
+            color: #555;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        nav a.active, nav a:hover {
+            background-color: #4a90e2;
+            color: white;
+        }
+        .main-title {
+            background-color: #4a90e2;
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        .main-title h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+        .main-title p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+        .content {
+            display: flex;
+            gap: 20px;
+        }
+        .left-panel, .right-panel {
+            background: #d9e9ff;
+            border-radius: 10px;
+            padding: 15px;
+            flex: 1;
+            box-shadow: 2px 2px 10px #a0cdfb88;
+        }
+        .left-panel h2, .right-panel h2 {
+            margin-top: 0;
+        }
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .search-bar input[type="search"] {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #a0bffb;
+        }
+        .search-bar button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .contact-list li {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .contact-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #5a87d6;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .contact-info strong {
+            display: block;
+        }
+        .btn-submit {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .interaction input[type="text"] {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #aac8f8;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        .timeline {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+            border-left: 3px solid #4a90e2;
+            position: relative;
+        }
+        .timeline li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .timeline li::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #4a90e2;
+            border-radius: 50%;
+            position: absolute;
+            left: -7px;
+            top: 6px;
+        }
+        .timeline li .date {
+            font-size: 12px;
+            color: #666;
+        }
+        .interaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .interaction-buttons button {
+            flex: 1 1 45%;
+            background-color: #91b9eb;
+            color: #003366;
+            border: none;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .chart {
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            box-shadow: 0px 0px 5px #aaa;
+        }
+        footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ccc;
+            font-size: 13px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        footer .left,
+        footer .center,
+        footer .right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        footer .left span,
+        footer .center span {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        footer .right a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://img.icons8.com/ios-filled/50/000000/open-book--v1.png" alt="BAPedia Logo" />
+            <div>
+                <span><strong>BAPedia</strong></span>
+                <small>· Ensiklobia Digital BAP</small>
+            </div>
+            <div style="margin-left:auto;">
+                <input type="search" placeholder="Search" style="padding:5px 8px; border-radius:4px; border:1px solid #ccc;" />
+                <button style="padding:5px 10px; margin-left:5px; border:none; background:#4a90e2; color:#fff; border-radius:4px;">🔍</button>
+            </div>
+        </header>
+        <nav>
+            <a href="home.html"class="active">Beranda</a> 
+            <a href="tentangBAP.html">Tentang BAP</a>
+            <a href="home.html" >Alat Fungsional</a>
+            <a href="berita&kegiatan.html">Berita & Kegiatan</a>
+            <a href="galeri.html">Galeri</a>
+            <a href="kontak.html">Kontak</a>
+        </nav>
+
+        <div class="main-title">
+            <h1>Database Staketholder BAP</h1>
+            <p>Kelola Informasi & Riwayat Interaksi Mitra Kerja</p>
+        </div>
+
+        <div class="content">
+            <section class="left-panel" aria-label="Daftar Kontak Staketholder">
+                <h2>Daftar Kontak Staketholder</h2>
+                <div class="search-bar">
+                    <input type="search" placeholder="Search" />
+                    <button>Lihat Detail</button>
+                </div>
+                <ul class="contact-list">
+                    <li>
+                        <div class="contact-avatar"></div>
+                        <div class="contact-info">
+                            <strong>Nama Lengkap</strong>
+                            Julleten A<br />
+                            Kontak: email
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-avatar"></div>
+                        <div class="contact-info">
+                            <strong>Nama Lengkap</strong>
+                            Jalsten A<br />
+                            Kontak: email
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-avatar"></div>
+                        <div class="contact-info">
+                            <strong>Nama Lengkap</strong>
+                            Retnian<br />
+                            Kontak: email
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-avatar"></div>
+                        <div class="contact-info">
+                            <strong>Nama Lengkap</strong>
+                            Posian<br />
+                            Kontak: email &amp;
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-avatar"></div>
+                        <div class="contact-info">
+                            <strong>Nama Lengkap</strong>
+                            Posian<br />
+                            Kontak: email
+                        </div>
+                    </li>
+                </ul>
+                <button class="btn-submit">Kirim Pengaduan</button>
+            </section>
+
+            <section class="right-panel" aria-label="Riwayat Interaksi & Pertemuan">
+                <h2>Riwayat Interaksi & Pertemuan</h2>
+                <input type="text" placeholder="nomor surat" />
+                <ul class="timeline">
+                    <li><span class="date">17/V/2023</span> Regst Komitist</li>
+                    <li><span class="date">15/AV/2023</span> Ragst Kondiamin</li>
+                    <li><span class="date">07/V/2023</span> Regst Kondimin</li>
+                    <li><span class="date">OM/V/2023</span> Kanijeoan Korjs</li>
+                    <li><span class="date">17/X/2023</span> Kamjesam Nemundgjil</li>
+                </ul>
+
+                <div class="interaction-buttons">
+                    <button>Pemerintah</button>
+                    <button>Kementrian</button>
+                    <button>Lembaga Swadya</button>
+                    <button>Masyarakat Sipil</button>
+                    <button>Media Masa</button>
+                </div>
+
+                <div class="chart">
+                    <p>Macim Boksis (Grafik placeholder)</p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Simple_bar_chart.svg/120px-Simple_bar_chart.svg.png" alt="Bar Chart" />
+                </div>
+
+                <div style="margin-top: 15px; font-weight: bold;">
+                    Maxcim Boksis
+                </div>
+                <div style="display:flex; gap:10px; font-size: 12px; color:#666;">
+                    <div>Pormeriatmit</div>
+                    <div>Usasemrfjql</div>
+                    <div>Media Massa</div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="left">
+                <span>Kebijakan Privasi</span>
+                <span>Syarat & Ketentuan</span>
+            </div>
+            <div class="center">Sitemap | All BAPedia All Reserved.</div>
+            <div class="right">
+                <a href="#" aria-label="Twitter">🐦</a>
+                <a href="#" aria-label="YouTube">▶️</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

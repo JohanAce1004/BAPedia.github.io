@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tentang Badan Akuntabilitas Publik</title>
+<style>
+  /* Reset dan Pengaturan dasar */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #4a6a87; /* Warna background luar */
+    color: #333;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  /* Container utama */
+  .container {
+    max-width: 1000px;
+    margin: 40px auto 60px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* ===== AWAL BLOK CSS HEADER & NAV BARU (STANDAR) ===== */
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  header img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  header .logo-text {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #000;
+  }
+  header .logo-text span {
+    font-weight: normal;
+    color: #666;
+    font-size: 1rem;
+    margin-left: 5px;
+  }
+  /* Search bar */
+  header .search {
+    margin-left: auto;
+    position: relative;
+  }
+  header .search input[type="text"] {
+    padding: 5px 40px 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 180px; /* Lebar spesifik */
+  }
+  header .search button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom:0;
+    background: #2a73d9;
+    border: none;
+    color: white;
+    padding: 0 12px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    font-size: 1rem;
+  }
+  /* Navigasi */
+  nav {
+    background: #f5faff;
+    display: flex;
+    gap: 1.5rem;
+    padding: 10px 20px;
+    border-bottom: 1px solid #d0dfea;
+  }
+  nav a {
+    text-decoration: none;
+    color: #333;
+    padding-bottom: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 0;
+  }
+  nav a:hover,
+  nav a.active {
+    border-bottom: 3px solid #2a73d9;
+    color: #2a73d9;
+    background-color: transparent;
+  }
+  /* ===== AKHIR BLOK CSS HEADER & NAV BARU ===== */
+
+  /* Bagian konten utama */
+  .content {
+    background: linear-gradient(135deg, #3b85d3 0%, #87ceeb 60%, #a3d5f7 85%, #bceeae 100%);
+    padding: 40px 50px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .content h1 {
+    grid-column: span 2;
+    color: #fff;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+  }
+  /* Menggunakan .subtitle dari .logo-text di header, jadi style ini dihapus agar tidak konflik */
+  /* .subtitle { ... } */ 
+
+  .content p.subtitle {
+    grid-column: span 2;
+    color: #e4f1ff;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+
+  /* Profil Lembaga dan Struktur Organisam */
+  .box {
+    background: rgba(255 255 255 / 0.6);
+    padding: 24px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(255,255,255,0.5);
+    color: #222;
+  }
+  .box h2 {
+    margin-top: 0;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .box p {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  /* Struktur Organisam */
+  .org-chart {
+    margin-top: 16px;
+  }
+  .org-node {
+    background: white;
+    border-radius: 4px;
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    width: max-content;
+    margin: 8px auto;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Struktur pohon menggunakan flex */
+  .org-level {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 10px;
+  }
+
+  /* Footer kecil */
+  footer {
+    background: #f8f8f8;
+    border-top: 1px solid #ddd;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    font-size: 13px;
+    color: #888;
+  }
+  footer > div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  footer svg {
+    width: 16px;
+    height: 16px;
+    fill: #888;
+  }
+
+  /* Responsive mobile */
+  @media (max-width: 700px) {
+    .content {
+      grid-template-columns: 1fr;
+      padding: 30px 20px 40px;
+    }
+    nav {
+      flex-wrap: wrap; /* Menyesuaikan nav standar */
+      gap: 1rem; /* Menyesuaikan nav standar */
+    }
+    nav a {
+      font-size: 14px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <img src="https://img.icons8.com/ios-filled/50/000000/book.png" alt="Logo BAPedia" />
+    <div class="logo-text">BAPedia <span>- Ensiklopedia Digital BAP</span></div>
+    <div class="search">
+      <input type="text" placeholder="Search" />
+      <button aria-label="Search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M21 21l-4.35-4.35" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="6" stroke="white" stroke-width="2" fill="none"/></svg></button>
+    </div>
+  </header>
+  
+  <nav>
+    <a href="home.html">Beranda</a> 
+    <a href="tentangBAP.html" class="active">Tentang BAP</a> <a href="home.html">Alat Fungsional</a>
+    <a href="berita&kegiatan.html">Berita & Kegiatan</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
+  </nav>
+  <main class="content" role="main" aria-label="Tentang Badan Arbitrase Pedia">
+    <h1>Tentang Anggota Badan Akuntabilitas Publik</h1>
+    <p class="subtitle">Mengenal Lebih Dekat Lembaga Kami</p>
+
+    <section class="box" aria-labelledby="profil-lembaga-title">
+      <h2 id="profil-lembaga-title">Profil Lembaga</h2>
+      <p>
+        BAP DPD RI berfungsi menindaklanjuti pengaduan masyarakat dan hasil pemeriksaan BPK yang berindikasi kerugian negara, 
+        terutama yang berkaitan dengan kepentingan daerah dan lintas komite
+      </p>
+      <p>
+        Lingkup tugas BAP meliputi:
+
+        a. melakukan penelaahan dan tindak lanjut terhadap hasil pemeriksaan BPK yang berindikasi kerugian Negara yang disampaikan kepada DPD atas permintaan Komite IV;
+        
+        b. menampung dan menindaklanjuti atas pengaduan masyarakat terkait dengan korupsi dan maladministrasi yang masalahnya berkaitan dengan kepentingan daerah yang lintas Komite sebagaimana dengan terlebih dahulu berkonsultasi dengan Pimpinan DPD.
+        
+        c. menyampaikan laporan kinerja dalam sidang paripurna penutupan Tahun Sidang.
+      </p>
+      <p>
+        Badan Akuntabilitas Publik (BAP) DPD RI
+        Fungsi utama: Menindaklanjuti pengaduan masyarakat terkait korupsi dan maladministrasi yang 
+        berkaitan dengan kepentingan daerah dan lintas komite.
+        Fungsi tambahan: Melakukan penelaahan dan tindak lanjut atas hasil pemeriksaan
+        Badan Pemeriksa Keuangan (BPK) yang berindikasi kerugian negara yang disampaikan kepada DPD RI.
+        Mekanisme kerja: Mengadakan rapat dengar pendapat, diskusi kelompok terfokus (FGD), 
+        dan kunjungan kerja untuk menindaklanjuti laporan dan pengaduan. 
+      </p>
+      <p>
+        Morem ipsum dolor dan kenepaul skpital silonan kena ajsknu BAP icngarian desguim jing xahg senjabai tnv Battran.
+      </p>
+      <p>
+        Petem Ipsum dolor tiiuskan nerkat menbasltan, keruran dena olnyisin rritentang orilaii.
+        kenpaal komnga in tenii aabi bgr perts utmdar.
+      </p>
+    </section>
+
+    <section class="box" aria-labelledby="struktur-organisam-title">
+      <h2 id="struktur-organisam-title">Struktur Organisasi</h2>
+      <div class="org-chart" role="tree">
+        <div class="org-node" role="treeitem" aria-level="1">Kepala Biro Persidangan 2</div>
+        <div class="org-level" role="group" aria-label="Level 2">
+          <div class="org-node" role="treeitem" aria-level="2">Kepala Bagian</div>
+          <div class="org-node" role="treeitem" aria-level="2">Divisi</div>
+        </div>
+        <div class="org-level" role="group" aria-label="Level 3">
+          <div class="org-node" role="treeitem" aria-level="3">Kepala Sub Bagian Tata Usaha</div>
+          <div class="org-node" role="treeitem" aria-level="3">Divisi</div>
+        </div>
+        <div class="org-level" role="group" aria-label="Level 4">
+          <div class="org-node" role="treeitem" aria-level="4">Kepala Sub Bagian Rapat</div>
+          <div class="org-node" role="treeitem" aria-level="4">Divisi</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <span>🕒</span> Kebijakan Privasi
+    </div>
+    <div>
+      <span>📍</span> Syarat & Ketentuan
+    </div>
+    <div>
+      <span>🔗</span> Sitemap
+    </div>
+    <div>
+      <span>©</span> All BAPedia. All Reserved.
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

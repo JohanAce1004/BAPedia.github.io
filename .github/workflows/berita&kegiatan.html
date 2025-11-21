@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BAPedia - Berita & Kegiatan</title>
+  <style>
+    /* Reset & Basic */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #4a637d; /* Warna background utama */
+      padding: 20px;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    /* Container utama */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    /* Header top */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #000;
+    }
+
+    .logo img {
+      width: 30px;
+      margin-right: 8px;
+    }
+
+    .logo span {
+      font-weight: 700;
+    }
+
+    .logo small {
+      font-weight: 400;
+      color: #555;
+      margin-left: 6px;
+      font-size: 14px;
+    }
+
+    /* Search bar */
+    .search {
+      display: flex;
+      align-items: center;
+    }
+
+    .search input[type="text"] {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px 0 0 3px;
+      font-size: 14px;
+      outline: none;
+      width: 160px;
+    }
+
+    .search button {
+      background: #3b82f6;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    /* Navigasi */
+    nav {
+      display: flex;
+      background: #f9f9f9;
+      border-bottom: 2px solid #e0e7ff;
+      padding: 10px 0;
+      justify-content: space-around;
+      font-weight: 600;
+      font-size: 15px;
+      color: #444;
+    }
+
+    nav a {
+      padding: 10px 18px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav a.active, nav a:hover {
+      background: #3b82f6;
+      color: white;
+    }
+
+    /* Hero Section dengan background shape*/
+    .hero {
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #3b82f6 40%, #87cefa 60%, #cceeff 75%, #a2d88e 90%);
+      color: white;
+      font-weight: 600;
+      border-radius: 0 0 40px 0;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    /* Konten utama */
+    .content {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* Berita Terbaru */
+    .news {
+      flex: 2;
+      background: #cce3f9;
+      padding: 15px;
+      border-radius: 15px;
+      color: #2c3e50;
+    }
+
+    .news h2 {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .news-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .news-item {
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .news-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .news-text {
+      font-size: 13px;
+      flex: 1;
+    }
+
+    .news-text b {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .news-meta {
+      font-size: 10px;
+      color: #777;
+      margin-top: 6px;
+    }
+
+    /* Agenda Kegiatan */
+    .agenda {
+      flex: 1;
+      background: #d7e5f6;
+      border-radius: 15px;
+      padding: 15px;
+      color: #2c3e50;
+    }
+
+    .agenda h2 {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .agenda-list {
+      list-style: none;
+      font-size: 13px;
+    }
+
+    .agenda-item {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .agenda-icon {
+      background: #3b82f6;
+      padding: 6px 8px;
+      border-radius: 5px;
+      color: white;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .agenda-text {
+      flex: 1;
+    }
+
+    .agenda-title {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .agenda-date {
+      font-size: 10px;
+      color: #666;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid #ddd;
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 13px;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: #555;
+      font-weight: 500;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .social-icons a {
+      color: #4a637d;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="https://img.icons8.com/ios-filled/50/000000/book.png" alt="Logo BAPedia" />
+        <span>BAPedia</span>
+        <small>- Ensiklopedia Digital BAP</small>
+      </div>
+      <form class="search" onsubmit="return false;">
+        <input type="text" placeholder="Search" />
+        <button aria-label="Search">&#128269;</button>
+      </form>
+    </header>
+
+    <nav>
+      <a href="home.html">Beranda</a> 
+        <a href="tentangBAP.html">Tentang BAP</a>
+        <a href="home.html" >Alat Fungsional</a>
+        <a href="berita&kegiatan.html" class="active">Berita & Kegiatan</a>
+        <a href="galeri.html">Galeri</a>
+        <a href="kontak.html">Kontak</a>
+    </nav>
+
+    <section class="hero">
+      <h1>Berita & Kegiatan BAP</h1>
+      <p>Ikuti Perkembangan Informasi & Acara Tebaru Kami</p>
+    </section>
+
+    <section class="content">
+      <div class="news">
+        <h2>Berita Terbaru</h2>
+        <div class="news-list">
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Portriia" />
+            <div class="news-text">
+              <b>Portriia lat Pluwig Massarrkat</b>
+              <span>Temp leutulu I aspiasiari Arda</span>
+              <div class="news-meta">20.3.11 8:43am</div>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Posrtian" />
+            <div class="news-text">
+              <b>Posrtian Pengaduan Massarrkat</b>
+              <span>Trepa balikan l naplasiri Arda</span>
+              <div class="news-meta">20.3.119 3:48h</div>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Manajergen" />
+            <div class="news-text">
+              <b>Manajergen Pongaduan Massarrkat</b>
+              <span>Tonye beilure l aspiasiari Arda</span>
+              <div class="news-meta">20.3.11 8:43hr</div>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cerita" />
+            <div class="news-text">
+              <b>Cemita & lisytan Masearaktt</b>
+              <span>Rope beilurel sapiasiari Arda</span>
+              <div class="news-meta">20.3.119 3:88hr</div>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Portvio" />
+            <div class="news-text">
+              <b>Portvio lan Pluwig Massarrakat</b>
+              <span>Teme beiluel laapisiuri Arda</span>
+              <div class="news-meta">20.3.113 2:48h</div>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/men/66.jpg" alt="Flernwian" />
+            <div class="news-text">
+              <b>Flernwian Pangaduan Massarrkat</b>
+              <span>Terpa beiluel Laapsiuri Arda</span>
+              <div class="news-meta">20.3.113 2:40h</div>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="Bontmkve" />
+            <div class="news-text">
+              <b>Bontmkve Peytnan Massarrkat</b>
+              <span>Temp larbul l aspiasiari Arda</span>
+              <div class="news-meta">20.3.113 9:48h</div>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://randomuser.me/api/portraits/men/88.jpg" alt="Pomsian" />
+            <div class="news-text">
+              <b>Pomsian Pangaduan Massarrkat</b>
+              <span>Faspa lallaul l aspiasiuri Arda</span>
+              <div class="news-meta">20.3.113 2:40h</div>
+            </div>
+          </article>          
+        </div>
+      </div>
+
+      <aside class="agenda">
+        <h2>Agenda Kegiatan</h2>
+        <ul class="agenda-list">
+          <li class="agenda-item">
+            <div class="agenda-icon">&#128197;</div>
+            <div class="agenda-text">
+              <div class="agenda-title">Mawms & Kalyipitan</div>
+              <div class="agenda-date">13.6.932</div>
+            </div>
+          </li>
+          <li class="agenda-item">
+            <div class="agenda-icon">&#128187;</div>
+            <div class="agenda-text">
+              <div class="agenda-title">Masojemen Stakeholder BAP</div>
+              <div class="agenda-date">13.4.332</div>
+            </div>
+          </li>
+          <li class="agenda-item">
+            <div class="agenda-icon">&#128198;</div>
+            <div class="agenda-text">
+              <div class="agenda-title">Polam Sx Hnisipnuten</div>
+              <div class="agenda-date">23.4.032</div>
+            </div>
+          </li>
+          <li class="agenda-item">
+            <div class="agenda-icon">&#128459;</div>
+            <div class="agenda-text">
+              <div class="agenda-title">Matajemen Palsinder BAP</div>
+              <div class="agenda-date">23.4.332</div>
+            </div>
+          </li>
+          <li class="agenda-item">
+            <div class="agenda-icon">&#128221;</div>
+            <div class="agenda-text">
+              <div class="agenda-title">Menms & Kalikin BAP</div>
+              <div class="agenda-date">10.4.932</div>
+            </div>
+          </li>
+          <li class="agenda-item">
+            <div class="agenda-icon">&#128197;</div>
+            <div class="agenda-text">
+              <div class="agenda-title">Mopkas & Kalenderd BAP</div>
+              <div class="agenda-date">23.0.032</div>
+            </div>
+          </li>
+          <li class="agenda-item">
+            <div class="agenda-icon">&#128197;</div>
+            <div class="agenda-text">
+              <div class="agenda-title">Psbjn & Kalender BAP</div>
+              <div class="agenda-date">29.4.932</div>
+            </div>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a href="#" title="Kebijakan Privasi">Kebijakan Privasi</a>
+        <a href="#" title="Syarat & Ketentuan">Syarat & Ketentuan</a>
+        <a href="#" title="Sitemap">Sitemap</a>
+        <span>All BaPedia. All Reserved.</span>
+      </div>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">&#128241;</a>
+        <a href="#" aria-label="YouTube">&#127916;</a>
+        <a href="#" aria-label="Eye">&#128065;</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BAPedia - Manajemen Persuratan BAP</title>
+  <style>
+    /* Reset dasar */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #d3e7f9;
+      color: #333;
+    }
+    /* Header */
+    header {
+      background: #f8fafc;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 30px;
+      margin-right: 10px;
+    }
+    nav {
+      margin-top: 10px;
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-around;
+      font-weight: 600;
+    }
+    nav a {
+      text-decoration: none;
+      color: #555;
+      padding: 8px 12px;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #007bff;
+    }
+    /* Search box */
+    .search-container {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      overflow: hidden;
+      width: 220px;
+    }
+    .search-container input {
+      border: none;
+      padding: 6px 10px;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+    }
+    .search-container button {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    /* Main */
+    main {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 0 20px;
+      background:
+        linear-gradient(45deg, #2f80ed 50%, #a5d8f5 50%),
+        #83bae3;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 0 20px rgb(0 0 0 / 0.1);
+      padding-bottom: 40px;
+    }
+    main h1 {
+      margin-top: 0;
+      padding: 40px 20px 10px 20px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    main p.subtitle {
+      margin: 0 0 30px 20px;
+      font-weight: 400;
+      font-size: 18px;
+    }
+    /* Cards container */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      color: #2f80ed;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      font-weight: 600;
+    }
+    .card svg {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 14px;
+    }
+    .card .title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .card .subtitle {
+      font-weight: 400;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .btn-upload {
+      background: #2f80ed;
+      color: white;
+      padding: 7px 14px;
+      font-size: 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-upload:hover {
+      background: #1155cc;
+    }
+    /* Table Side */
+    .table-container {
+      max-width: 320px;
+      background: white;
+      border-radius: 12px;
+      margin: 20px auto 40px auto;
+      padding: 15px;
+      box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+      color: #333;
+      font-weight: 500;
+    }
+    .table-container input[type="search"] {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      outline: none;
+      font-size: 14px;
+    }
+    .table-container table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .table-container table thead tr {
+      background: #f3f6fb;
+      font-weight: 700;
+      color: #444;
+    }
+    .table-container table th,
+    .table-container table td {
+      padding: 6px 8px;
+      border: 1px solid #eee;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .table-container table th {
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .status {
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      align-items: center;
+    }
+    .status .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .status .red { background: #e74c3c; }
+    .status .green { background: #27ae60; }
+    .status .gray { background: #95a5a6; }
+    .btn-detail {
+      background: #2f80ed;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-detail:hover {
+      background: #185aba;
+    }
+    /* Footer */
+    footer {
+      font-size: 13px;
+      color: #999;
+      background: #f8fafc;
+      border-top: 1px solid #ddd;
+      padding: 12px 20px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    footer a {
+      color: #666;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    footer a:hover {
+      color: #007bff;
+    }
+    /* Responsive */
+    @media (min-width: 900px) {
+      main {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 60px;
+      }
+      .cards-container {
+        width: 62%;
+        padding: 40px 20px 20px 40px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 40px;
+      }
+      .table-container {
+        width: 33%;
+        margin: 40px 40px 0 0;
+        padding-top: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="https://img.icons8.com/ios-filled/50/2f80ed/open-book--v1.png" alt="Logo" />
+      <span>BAPedia - <small>Ensiklopedia Digital BAP</small></span>
+    </div>
+    <nav>
+      <a href="home.html">Beranda</a> 
+      <a href="tentangBAP.html">Tentang BAP</a>
+      <a href="home.html" class="active">Alat Fungsional</a>
+      <a href="berita&kegiatan.html">Berita & Kegiatan</a>
+      <a href="galeri.html">Galeri</a>
+      <a href="kontak.html">Kontak</a>
+    </nav>
+    <div class="search-container" style="margin-top:10px;">
+      <input type="search" placeholder="Search" aria-label="Search" />
+      <button aria-label="Search Button">&#128269;</button>
+    </div>
+  </header>
+  
+  <main>
+    <section>
+      <h1>Manajemen Persuratan BAP</h1>
+      <p class="subtitle">Kelola Dokumen Masuk & Keluar Secara Digital</p>
+      <div class="cards-container">
+        <div class="card">
+          <svg fill="none" stroke="#2f80ed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 12h-5l-4-4-4 4H2"></path><path d="M2 12v8a2 2 0 002 2h16a2 2 0 002-2v-8"></path><path d="M16 16l4-4-4-4"></path></svg>
+          <div class="title">Surat Masuk</div>
+          <div class="subtitle">Belum Didisposisikan: 9<br />Terbaru: Surat dari Kementrian (14/05/25)</div>
+        </div>
+        <div class="card">
+          <svg fill="none" stroke="#2f80ed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 12h-4l-4 4-4-4H2"></path><path d="M2 12v8a2 2 0 002 2h16a2 2 0 002-2v-8"></path><path d="M16 8l4 4-4 4"></path></svg>
+          <div class="title">Surat Keluar</div>
+          <div class="subtitle">Sudah Didisposisikan</div>
+        </div>
+        <div class="card">
+          <svg fill="none" stroke="#2f80ed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 16v-8a4 4 0 014-4h10a4 4 0 014 4v8"></path><path d="M12 12v4"></path><path d="M9 16h6"></path></svg>
+          <div class="title">Arsip Digital</div>
+          <div class="subtitle">Terbaru: Surat dari Provinsi Sumut</div>
+          <button class="btn-upload">+ Unggah Dokumen</button>
+        </div>
+        <div class="card">
+          <svg fill="none" stroke="#2f80ed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 10v8a2 2 0 01-2 2H4a2 2 0 01-2-2v-8"></path><path d="M16 6l-4-4-4 4"></path></svg>
+          <div class="title">Surat Keluar</div>
+          <div class="subtitle">Rapat, Kementrian </div>
+        </div>
+      </div>
+    </section>
+    <aside class="table-container">
+      <input type="search" placeholder="Cari Surat Masuk..." />
+      <table>
+        <thead>
+          <tr>
+            <th>Surat Masuk</th>
+            <th>Perihal</th>
+            <th>Perihal</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>001/KMV/24</td>
+            <td>Perlu Didisposisi</td>
+            <td><span class="status"><span class="dot red"></span></span></td>
+            <td><button class="btn-detail">cek detail</button></td>
+          </tr>
+          <tr>
+            <td>15/05/24</td>
+            <td>undangan Rapat</td>
+            <td><span class="status"><span class="dot green"></span></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>001/SD/V/24</td>
+            <td>Undangan Rapat</td>
+            <td><span class="status"><span class="dot green"></span></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Bappemas</td>
+            <td>Undangan Rapat</td>
+            <td><span class="status"><span class="dot gray"></span></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Bempenss</td>
+            <td>Belum Didisposisi</td>
+            <td><span class="status"><span class="dot gray"></span></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>002/SD/V/24</td>
+            <td>15/05/24</td>
+            <td><span class="status"><span class="dot red"></span><span class="dot green"></span></span></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn-detail" style="margin-top:10px; width:100%;">Lihat Detail</button>
+    </aside>
+  </main>
+
+  <footer>
+    <a href="#">Kebijakan Privasi</a>
+    <a href="#">Syarat & Ketentuan</a>
+    <a href="#">Sitemap</a>
+    <span>All BAPedia, All reserved.</span>
+  </footer>
+</body>
+</html>

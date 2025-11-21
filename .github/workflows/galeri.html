@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Galeri BAPedia</title>
+    <style>
+        /* Reset & basic */
+        body, h1, h2, h3, p, ul, li, a {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #3c3d45;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+        body {
+            background: #546e93; /* background area luar sekitar kotak utama */
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container {
+            background: #5492d8; /* #5492d8 warna utama background */
+            width: 100%;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgb(0 0 0 / 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== AWAL BLOK CSS HEADER & NAV BARU (STANDAR) ===== */
+        /* Header */
+        header {
+          display: flex;
+          align-items: center;
+          padding: 10px 20px;
+          background: #fff;
+          border-bottom: 1px solid #ddd;
+        }
+        header img {
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+        }
+        header .logo-text {
+          font-weight: bold;
+          font-size: 1.2rem;
+          color: #000;
+        }
+        header .logo-text span {
+          font-weight: normal;
+          color: #666;
+          font-size: 1rem;
+          margin-left: 5px;
+        }
+        /* Search bar */
+        header .search {
+          margin-left: auto;
+          position: relative;
+        }
+        header .search input[type="text"] {
+          padding: 5px 40px 5px 10px;
+          font-size: 1rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          width: 180px; /* Lebar spesifik */
+        }
+        header .search button {
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom:0;
+          background: #2a73d9;
+          border: none;
+          color: white;
+          padding: 0 12px;
+          cursor: pointer;
+          border-radius: 0 4px 4px 0;
+          font-size: 1rem;
+        }
+        /* Navigasi */
+        nav {
+          background: #f5faff;
+          display: flex;
+          gap: 1.5rem;
+          padding: 10px 20px;
+          border-bottom: 1px solid #d0dfea;
+        }
+        nav a {
+          text-decoration: none;
+          color: #333;
+          padding-bottom: 5px;
+          font-weight: 600;
+          font-size: 1rem;
+          border-radius: 0;
+        }
+        nav a:hover,
+        nav a.active {
+          border-bottom: 3px solid #2a73d9;
+          color: #2a73d9;
+          background-color: transparent;
+        }
+        /* ===== AKHIR BLOK CSS HEADER & NAV BARU ===== */
+        
+        /* Main content */
+        main {
+            background: linear-gradient(135deg, #5492d8 40%, #8cc8e6 70%, #d5f0fc 100%);
+            padding: 50px 40px 40px;
+            border-radius: 0 0 10px 10px;
+            color: #fff;
+        }
+        main h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: white;
+        }
+        main p.subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: #e0e7ef;
+        }
+
+        /* Galeri sections */
+        .gallery-sections {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .gallery-section {
+            background: rgba(255 255 255 / 0.3);
+            border-radius: 15px;
+            flex: 1 1 45%;
+            padding: 20px;
+            min-width: 280px;
+            color: #222;
+        }
+        .gallery-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Cards grid */
+        .cards {
+            display: grid;
+            gap: 15px;
+            grid-template-columns: repeat(auto-fill,minmax(130px,1fr));
+        }
+        /* Video column grid smaller */
+        .gallery-section.videos .cards {
+            grid-template-columns: 1fr;
+        }
+
+        /* Card style */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 8px 8px 10px;
+            box-sizing: border-box;
+            box-shadow: 0 1.5px 6px rgb(0 0 0 / 0.12);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        /* Card footer text */
+        .card .title {
+            margin-top: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #222;
+        }
+        .card .subtitle {
+            font-size: 11px;
+            color: #888;
+        }
+
+        /* Image & video thumbnail */
+        .card .thumb-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+        /* Play icon overlay */
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(80, 144, 217, 0.9);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .play-icon svg {
+            fill: white;
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #f8f8f8;
+            padding: 10px 40px;
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: inset 0 1px 0 #bbb;
+        }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            font-weight: 500;
+        }
+        .footer-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .footer-right svg {
+            fill: #666;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .footer-right svg:hover {
+            fill: #5492d8;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .gallery-sections {
+                flex-direction: column;
+            }
+            .gallery-section {
+                flex: 1 1 100%;
+            }
+            main {
+                padding: 30px 20px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+          <img src="https://img.icons8.com/ios-filled/50/000000/book.png" alt="Logo BAPedia" />
+          <div class="logo-text">BAPedia <span>- Ensiklopedia Digital BAP</span></div>
+          <div class="search">
+            <input type="text" placeholder="Search" />
+            <button aria-label="Search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M21 21l-4.35-4.35" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="6" stroke="white" stroke-width="2" fill="none"/></svg></button>
+          </div>
+        </header>
+        
+        <nav>
+          <a href="home.html">Beranda</a> 
+          <a href="tentangBAP.html">Tentang BAP</a>
+          <a href="home.html">Alat Fungsional</a>
+          <a href="berita&kegiatan.html">Berita & Kegiatan</a>
+          <a href="galeri.html" class="active">Galeri</a>
+          <a href="kontak.html">Kontak</a>
+        </nav>
+        <main>
+            <h1>Galeri BAPedia</h1>
+            <p class="subtitle">Dokumentasi Visual Kegiatan Kami</p>
+
+            <div class="gallery-sections">
+                <section class="gallery-section photos">
+                    <h2>Galeri Foto</h2>
+                    <div class="cards">
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/150x80?text=Foto+1" alt="Rapat Koordinasi"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Rapat Koordinasi</div>
+                        </div>
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/150x80?text=Foto+2" alt="Kunjungan Kerja"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Kunjungan Kerja</div>
+                        </div>
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/150x80?text=Foto+3" alt="Seminar Kentsalis"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Seminar Kentsalis</div>
+                        </div>
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/150x80?text=Foto+4" alt="Kemiskinan Publik"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Kemiskinan Publik</div>
+                        </div>
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/150x80?text=Foto+5" alt="Diskusi Kelompok"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Diskusi Kelompok</div>
+                        </div>
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/150x80?text=Foto+6" alt="Presentasi Publik"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Presentasi Publik</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="gallery-section videos">
+                    <h2>Galeri Video</h2>
+                    <div class="cards">
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/280x80?text=Video+1" alt="Highlight Sidang Tahunan"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Highlight Sidang Tahunan</div>
+                            <div class="subtitle">Temeasad sesstor kodeh</div>
+                        </div>
+                        <div class="card">
+                            <div class="thumb-container">
+                                <img src="https://via.placeholder.com/280x80?text=Video+2" alt="Prmntn tatksat Kalender BAP"/>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="title">Prmntn tatksat Kalender BAP</div>
+                            <div class="subtitle">Termeasut tespias & Kodeh</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <div>Kebijakan Privasi</div>
+                <div>Syarat & Ketentuan</div>
+                <div>Sitemap</div>
+            </div>
+            <div class="footer-right">
+                <div>All BAPedia. All Reserved.</div>
+                <svg viewBox="0 0 24 24" aria-label="Instagram">
+                    <circle cx="12" cy="12" r="10" stroke="#666" stroke-width="2" fill="none"/>
+                    <circle cx="17" cy="7" r="1.5" fill="#666"/>
+                    <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="#666" stroke-width="2" fill="none"/>
+                </svg>
+                <svg viewBox="0 0 24 24" aria-label="Twitter">
+                    <path d="M22 5.72a8.18 8.18 0 0 1-2.36.64 4.1 4.1 0 0 0 1.8-2.26 8.16 8.16 0 0 1-2.6 1 4.1 4.1 0 0 0-7 3.73A11.64 11.64 0 0 1 3.16 4.74a4.1 4.1 0 0 0 1.27 5.48 4 4 0 0 1-1.85-.5v.05a4.1 4.1 0 0 0 3.3 4 4 4 0 0 1-1.84.07 4.1 4.1 0 0 0 3.83 2.85A8.2 8.2 0 0 1 2 18.13 11.6 11.6 0 0 0 8.29 20c7.55 0 11.68-6.26 11.68-11.68 0-.18 0-.35-.01-.53A8.35 8.35 0 0 0 22 5.72Z" fill="#666"/>
+                </svg>
+                <svg viewBox="0 0 24 24" aria-label="YouTube">
+                    <path d="M10 15l5.2-3L10 9v6z" fill="#666"/>
+                    <path fill="none" d="M0 0h24v24H0z"/>
+                </svg>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
