@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hubungi Kami - BAPedia</title>
+  <style>
+    /* Reset & base */
+    body, html {
+      margin: 0; padding: 0;
+      font-family: Arial, sans-serif;
+      /* DIUBAH UNTUK FULL-WIDTH */
+      background: #f3f8fc; /* warna background luar disamakan */
+      color: #333;
+    }
+    a {
+      color: #337ab7;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    input, textarea, button {
+      font-family: inherit;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 8px 10px;
+      /* width: 100%; <-- Dihapus untuk perbaikan form */
+      box-sizing: border-box;
+      transition: 0.3s border-color ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #599bd9;
+      background-color: #eef6fd;
+    }
+    button {
+      background-color: #599bd9;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background-color: #4783c8;
+    }
+
+    /* Container utama (DIUBAH UNTUK FULL-WIDTH) */
+    .container {
+      max-width: 100%; /* <-- DIUBAH */
+      margin: 0; /* <-- DIUBAH */
+      background: #f3f8fc; /* warna putih ke biruan */
+      /* border-radius: 0 0 10px 10px; <-- Dihapus */
+      /* box-shadow: 0 0 20px rgb(0 0 0 / 0.2); <-- Dihapus */
+      overflow: hidden;
+    }
+
+    /* ===== AWAL BLOK CSS HEADER & NAV BARU (STANDAR) ===== */
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    header img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    header .logo-text {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #000;
+    }
+    header .logo-text span {
+      font-weight: normal;
+      color: #666;
+      font-size: 1rem;
+      margin-left: 5px;
+    }
+
+    /* Search bar */
+    header .search {
+      margin-left: auto;
+      position: relative;
+    }
+    header .search input[type="text"] {
+      padding: 5px 40px 5px 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 180px; /* Lebar spesifik untuk search box */
+    }
+    header .search button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom:0;
+      background: #2a73d9;
+      border: none;
+      color: white;
+      padding: 0 12px;
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+      font-size: 1rem;
+    }
+
+    /* Navigasi */
+    nav {
+      background: #f5faff;
+      display: flex;
+      gap: 1.5rem;
+      padding: 10px 20px;
+      border-bottom: 1px solid #d0dfea;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      padding-bottom: 5px;
+      font-weight: 600;
+      font-size: 1rem; 
+      border-radius: 0; 
+    }
+    nav a:hover,
+    nav a.active {
+      border-bottom: 3px solid #2a73d9;
+      color: #2a73d9;
+      background-color: transparent; 
+    }
+    /* ===== AKHIR BLOK CSS HEADER & NAV BARU ===== */
+
+
+    /* Bagian Konten */
+    main {
+      position: relative;
+      padding: 40px 30px 60px 30px;
+      background: linear-gradient(
+        135deg,
+        #4c8ddf 0%,
+        #8ecbf1 40%,
+        #a7d7f9 60%,
+        #dbf1f9 80%,
+        #bbf4bb 95%
+      );
+      color: white;
+    }
+    main h1 {
+      font-size: 28px;
+      margin-top: 0;
+      font-weight: bold;
+    }
+    main p.subtitle {
+      margin: 8px 0 30px 0;
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    /* Kotak form dan info kontak */
+    .kontakt-wrapper {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .box {
+      background: rgba(255 255 255 / 0.7);
+      border-radius: 15px;
+      padding: 20px 25px;
+      flex: 1 1 350px;
+      box-shadow: 0 0 15px rgb(0 0 0 / 0.08);
+      color: #222;
+    }
+    .box h3 {
+      margin: 0 0 15px 0;
+      font-weight: 600;
+      font-size: 18px;
+      color: #555;
+    }
+    .box input, .box textarea {
+      margin-bottom: 0; 
+    }
+    .box textarea {
+      resize: vertical;
+    }
+
+    /* ===== CSS BARU UNTUK LAYOUT FORM ===== */
+    .form-kontak .form-row {
+      display: flex;
+      gap: 15px; /* Jarak antar input */
+      margin-bottom: 15px; /* Jarak antar baris */
+    }
+    .form-kontak .form-row input {
+      flex: 1; /* Input akan berbagi ruang secara merata */
+      width: auto;
+    }
+    .form-kontak .form-row textarea {
+      flex: 2; /* Ambil 2x lipat ruang dibanding input "Pesan Anda" */
+      height: 80px;
+      width: auto;
+    }
+    .form-kontak .form-row .btn-submit {
+      flex-grow: 0; /* Tombol tidak membesar */
+      width: 140px; /* Kembalikan lebar tombol */
+    }
+    /* ===== AKHIR CSS BARU UNTUK LAYOUT FORM ===== */
+
+    /* Tombol kirim */
+    .btn-submit {
+      background-color: #599bd9;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-submit:hover {
+      background-color: #4783c8;
+    }
+
+    /* Informasi kontak lainnya */
+    .info-kontak img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    .info-kontak p {
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #3d3d3d;
+    }
+    /* Icon-info sederhana */
+    .icon {
+      display: inline-block;
+      width: 18px;
+      text-align: center;
+      color: #337ab7;
+    }
+
+    /* Footer */
+    footer {
+      background: #f7f7f7;
+      border-top: 1px solid #ddd;
+      font-size: 13px;
+      color: #666;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    footer a {
+      color: #666;
+    }
+    footer a:hover {
+      color: #337ab7;
+    }
+
+    /* Responsive */
+    @media(max-width: 700px){
+      .kontakt-wrapper {
+        flex-direction: column;
+      }
+      .box {
+        flex: 1 1 100%;
+      }
+      /* Perbaikan responsive untuk form row */
+      .form-kontak .form-row {
+        flex-direction: column;
+      }
+      .form-kontak .form-row input,
+      .form-kontak .form-row textarea,
+      .form-kontak .form-row .btn-submit {
+        width: 100%; /* Lebar penuh di mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <img src="https://img.icons8.com/ios-filled/50/000000/book.png" alt="Logo BAPedia" />
+      <div class="logo-text">BAPedia <span>- Ensiklopedia Digital BAP</span></div>
+      <div class="search">
+        <input type="text" placeholder="Search" />
+        <button aria-label="Search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M21 21l-4.35-4.35" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="6" stroke="white" stroke-width="2" fill="none"/></svg></button>
+      </div>
+    </header>
+    
+    <nav>
+      <a href="home.html">Beranda</a> 
+      <a href="tentangBAP.html">Tentang BAP</a>
+      <a href="home.html">Alat Fungsional</a>
+      <a href="berita&kegiatan.html">Berita & Kegiatan</a>
+      <a href="galeri.html">Galeri</a>
+      <a href="kontak.html" class="active">Kontak</a>
+    </nav>
+    <main>
+      <h1>Hubungi Kami</h1>
+      <p class="subtitle">Sampaikan Pertanyaan & Masukan Anda</p>
+
+      <div class="kontakt-wrapper">
+
+        <div class="box form-kontak">
+          <h3>Formulir Kontak</h3>
+          <form>
+            <div class="form-row">
+              <input type="text" placeholder="Nama Lengkalp" required />
+              <input type="email" placeholder="Email" required />
+              <input type="tel" placeholder="Nomor Telepon" />
+            </div>
+            
+            <div class="form-row">
+              <input type="text" placeholder="Pesan Anda" />
+              <textarea placeholder="Masukkan pesan di sini..."></textarea>
+            </div>
+
+            <div class="form-row">
+                <button type="submit" class="btn-submit">Kirim Pesan</button>
+            </div>
+          </form>
+        </div>
+        <div class="box info-kontak">
+          <h3>Informasi Kontak Lainnya</h3>
+          <img src="https://maps.googleapis.com/maps/api/staticmap?center=-6.2,106.8&zoom=15&size=280x150&markers=color:red%7C-6.2,106.8" alt="Peta lokasi kantor" />
+          <p><span class="icon">🏢</span> Almat Kantor: <a href="#">Jl. Gatot Subroto No.6, RT.1/RW.3, Senayan, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10270</a></p>
+          <p><span class="icon">📧</span> Email: <a href="mailto:info@riktit.id">bap@dpd.go.id</a></p>
+          <p><span class="icon">📞</span> Telepon: (021) 123-467</p>
+          <p><span class="icon">📱</span> <a href="#">(021) 123-467</a></p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <a href="#">Kebijakan Privasi</a>
+      <a href="#">Syarat & Ketentuan</a>
+      <a href="#">Sitemap</a>
+      <span>All BAPedia. All Reserved.</span>
+      <div style="margin-left:auto;display:flex;gap:10px;">
+        <a href="#" aria-label="Instagram">📸</a>
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="YouTube">▶️</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
